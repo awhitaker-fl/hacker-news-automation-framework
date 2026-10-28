@@ -8,17 +8,72 @@ The test visits [Hacker News – Newest](https://news.ycombinator.com/newest) an
 
 ## Prerequisites
 
-- [Node.js](https://nodejs.org/) - the version is pinned in `.node-version`. With [fnm](https://github.com/Schniz/fnm) set up, it switches to this version automatically when you `cd` into the project.
-- [pnpm](https://pnpm.io/installation) - the version is pinned in the `packageManager` field of `package.json`.
+- [Git](https://git-scm.com/)
+- macOS or Linux with zsh or bash. For Windows or other shells, see the [fnm shell setup](https://github.com/Schniz/fnm#shell-setup).
+- [Homebrew](https://brew.sh/) on macOS (optional, used to install fnm)
+
+## Setup
+
+1. **Install [fnm](https://github.com/Schniz/fnm)** (Fast Node Manager), which installs Node.js and switches to the version each project needs.
+
+   With Homebrew (macOS):
+
+   ```sh
+   brew install fnm
+   ```
+
+   Or with the install script (macOS and Linux):
+
+   ```sh
+   curl -fsSL https://fnm.vercel.app/install | bash
+   ```
+
+2. **Set up your shell** so fnm switches to the project's Node.js version whenever you `cd` into it. Add this line to `~/.zshrc` (zsh is the macOS default):
+
+   ```sh
+   eval "$(fnm env --use-on-cd --shell zsh)"
+   ```
+
+   For bash, add `eval "$(fnm env --use-on-cd --shell bash)"` to `~/.bashrc` instead. If you used the install script, it has already added an fnm block to that file with `eval "$(fnm env --shell zsh)"` (or `--shell bash`), so add `--use-on-cd` to that line rather than adding a second one.
+
+   Then reload your shell (use `~/.bashrc` for bash), or open a new terminal:
+
+   ```sh
+   source ~/.zshrc
+   ```
+
+3. **Clone the repository**:
+
+   ```sh
+   git clone https://github.com/awhitaker-fl/hacker-news-automation-framework.git
+   cd hacker-news-automation-framework
+   ```
+
+4. **Install Node.js** at the version pinned in `.node-version`:
+
+   ```sh
+   fnm install
+   fnm use
+   node --version # v24.19.0
+   ```
+
+5. **Enable pnpm** with Corepack, which is bundled with Node.js 24 and uses the pnpm version pinned in the `packageManager` field of `package.json`:
+
+   ```sh
+   corepack enable pnpm
+   pnpm --version # 10.28.2
+   ```
+
+   If Corepack asks to download pnpm, answer `Y`.
+
+6. **Install the dependencies and the Chromium browser**:
+
+   ```sh
+   pnpm install
+   pnpm exec playwright install chromium
+   ```
 
 ## Usage
-
-Install the dependencies and the Chromium browser:
-
-```sh
-pnpm install
-pnpm exec playwright install chromium
-```
 
 Run the test (any Playwright CLI options can be appended, e.g. `pnpm test --ui` to step through it in UI mode):
 
