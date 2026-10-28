@@ -2,11 +2,12 @@ import { expect, type Locator, type Page } from '@playwright/test';
 
 export class NewestPage {
   readonly url = '/newest';
+  readonly articlesPerPage = 30;
 
   readonly articleRows: Locator;
   readonly moreLink: Locator;
 
-  constructor(private readonly page: Page) {
+  constructor(protected readonly page: Page) {
     this.articleRows = page.locator('tr.athing.submission');
     this.moreLink = page.locator('a.morelink');
   }
