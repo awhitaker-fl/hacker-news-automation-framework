@@ -36,7 +36,7 @@ test.describe('Hacker News - Newest', () => {
           await expect(article.rankAbove, aboveMessage).toHaveText(`${rank - 1}.`);
         } else if (rank > 1) {
           const urlMessage = `URL should start the page at #${rank} (id ${id})`;
-          await expect(page, urlMessage).toHaveURL(`/newest?next=${id}&n=${rank}`);
+          await expect(page, urlMessage).toHaveURL(`/newest?next=${id + 1}&n=${rank}`);
         }
 
         if (articleAbove) {
